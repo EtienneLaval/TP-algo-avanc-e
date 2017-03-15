@@ -53,6 +53,8 @@ public class SortingFunctions {
         }
         return timeArray;
     }
+
+
     public static void Dichotomy (int[] array, int value, int begin, int end){
         if (end-begin<1){
             int middle= begin + (end-begin)/2;
