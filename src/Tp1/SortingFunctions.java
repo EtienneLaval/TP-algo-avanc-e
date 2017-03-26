@@ -120,9 +120,6 @@ public class SortingFunctions {
                     hadToSwap= true;
                 } }
         }while(hadToSwap);
-
-
-
     }
     public static void MergeSort(int[] data, int begin, int end){
         if((end-begin) < 2){return;}
