@@ -1,44 +1,4 @@
 package Tp3;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class Graph {
-//    private List<Node> nodes;
-//
-//    public Graph() {
-//        nodes = new ArrayList<>();
-//    }
-//    public Graph(int n){
-//        nodes = new ArrayList<>();
-//        //construit 1 graphe vide de taille n
-//        for (int i = 0; i<n ; i++){
-//            this.addNode();
-//        }
-//    }
-//
-//
-//
-//
-//
-//    // simple voids
-//    public void addNode() {
-//        Node newNode = new Node();
-//        nodes.add(newNode);
-//    }
-//    public void addEdge(Node n1, Node n2) {
-//        Edge newEdge = new Edge(n1,n2);
-//        n1.addEdge(newEdge);
-//        n2.addEdge(newEdge);
-//    }
-//
-//
-//}
-//
-//
-//
-//
-
 import Tp1.SortingFunctions;
 
 import java.io.IOException;
@@ -119,12 +79,6 @@ public class Graph {
         return adj.length;
     }
     public int getSize(){
-//        int size = 0;
-//        for (int i = 0; i< adj.length; i++){
-//            if (adj[i]!= null){
-//                size = size + adj[i].size();
-//            }
-//        }
         return edgeCount;
     }
     public List<Integer> getNeightbours(int node){
@@ -166,13 +120,6 @@ public class Graph {
 
 
 
-
-
-
-
-
-
-
         public void print() {
         System.out.println(Arrays.toString(adj));
     }
@@ -183,19 +130,6 @@ public class Graph {
     public void printNeightbours (int node){
         System.out.println(getNeightbours(node));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -232,3 +166,44 @@ public class Graph {
         }
     }
 }
+
+
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public class Graph {
+//    private List<Node> nodes;
+//
+//    public Graph() {
+//        nodes = new ArrayList<>();
+//    }
+//    public Graph(int n){
+//        nodes = new ArrayList<>();
+//        //construit 1 graphe vide de taille n
+//        for (int i = 0; i<n ; i++){
+//            this.addNode();
+//        }
+//    }
+//
+//
+//
+//
+//
+//    // simple voids
+//    public void addNode() {
+//        Node newNode = new Node();
+//        nodes.add(newNode);
+//    }
+//    public void addEdge(Node n1, Node n2) {
+//        Edge newEdge = new Edge(n1,n2);
+//        n1.addEdge(newEdge);
+//        n2.addEdge(newEdge);
+//    }
+//
+//
+//}
+//
+//
+//
+

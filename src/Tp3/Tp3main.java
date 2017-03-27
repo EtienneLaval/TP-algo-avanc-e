@@ -3,31 +3,42 @@ package Tp3;
 import java.io.IOException;
 
 public class Tp3main {
-//    public static Graph question2_2_2 () throws IOException {
-//            List<String> lines = Files.readAllLines(Paths.get("./graph.txt"), StandardCharsets.UTF_8);
-//        for (String line : lines){
-//            System.out.println(line);
-//        }
-//        Graph graph = new Graph();
-//
-//        return graph;
-//    }
-//        public static void main(String[] args) throws IOException {
-//        Graph graph  = question2_2_2();
-//    }
-
     public static void main(String[] args) throws IOException {
-        Graph graph = new Graph("src/Tp3/Karate.txt");
-        int[] degreeIndexArray = graph.getBubleSorterIndexArray("neightbours");
-        graph.print();
-        graph.printDetails();
+//        -------------------------------------------------------------Question 2.1 ---------------------------------------------------------
+        Graph graph_2_1 = new Graph("src/Tp3/graph.txt");
+        graph_2_1.print();
+        graph_2_1.printDetails();
+        graph_2_1.printNeightbours(0);
+        graph_2_1.printNeightbours(1);
+        graph_2_1.printNeightbours(2);
+        graph_2_1.printNeightbours(3);
+
+//        j'ai assumé que le graphe ici présenté commencait au noeud 1 et j'ai donc décalé les index en java pour ne pas avoir de noeud déconnecté à 0
+//        le degré moyen est 2M/N ou 12/4 soit 3, le minimum est de 1 et le maximum de 4, ce graphe est plutot dense, car il a théoriquement assez de liens pour lier chaque noeud entre eux et il est connecté
+//        il n'y a pas de neud isolé
+//        il y a une boucle au premier noeud (que j'ai appelé zéro)
+
+
+        Graph graph_2_1_command_builded = new Graph();
+        graph_2_1_command_builded.print();
+        graph_2_1_command_builded.printDetails();
+
+
+
+
+
+
+//        -------------------------------------------------------------Question 3 ----------------------------------------------------------
+        Graph graph_3_Karate = new Graph("src/Tp3/Karate.txt");
+        int[] degreeIndexArray = graph_3_Karate.getBubleSorterIndexArray("neightbours");
+        graph_3_Karate.printDetails();
         System.out.println(degreeIndexArray[0]);//the index of the highest degree karate master
-        graph.printNeightbours(degreeIndexArray[0]); // the edges of the karate master
+        graph_3_Karate.printNeightbours(degreeIndexArray[0]); // the edges of the karate master
         System.out.println(degreeIndexArray[1]);//the index of the second highest degree karate master
-        graph.printNeightbours(degreeIndexArray[1]); // the edges of the karate master
+        graph_3_Karate.printNeightbours(degreeIndexArray[1]); // the edges of the karate master
         
         System.out.println(degreeIndexArray[2]);//the index of the third highest degree karate master
-        graph.printNeightbours(degreeIndexArray[2]);
+        graph_3_Karate.printNeightbours(degreeIndexArray[2]);
 
 //        graph.printNeightbours(3);
 
@@ -39,8 +50,5 @@ public class Tp3main {
 
     }
 
-    // j'ai assumé que le graphe ici présenté commencait au noeud 1 et j'ai donc décalé les index en java pour ne pas avoir de noeud déconnecté à 0
-    //the average degree is 2M/N or 12/4 soit 3, le minimum est de 1 et le maximum de 4, ce graphe est plutot dense, car il a théoriquement assez de liens pour lier chaque noeud entre eux et il est connecté
-    // il n'y a pas de neud isolé
-    // il y a une boucle au premier noeud (que j'ai appelé zéro)
+
 }
