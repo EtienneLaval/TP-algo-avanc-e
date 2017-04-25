@@ -91,6 +91,12 @@ public class SortingFunctions {
         data[i]= data[j];
         data[j]= tmp;
     }
+    public static ArrayList<Integer> swapArraylist(ArrayList<Integer> data, int i, int j){
+        int tmp= data.get(i);
+        data.set(i,data.get(j));
+        data.set(j,tmp);
+        return data;
+    }
 
     public static int minimumIndex(int[] data, int begin, int end){
         int res= begin;
@@ -109,9 +115,9 @@ public class SortingFunctions {
         }
     }
 
-    public static void BubleSort(int[] data){
-        if(data.length < 2){return;}
-        boolean hadToSwap= false;
+    public static int[] BubleSort(int[] data){
+        if(data.length < 2){return data;}
+        boolean hadToSwap = false;
         do{
             hadToSwap=false;
             for(int i= 0; i != data.length-1; ++i){
@@ -120,7 +126,35 @@ public class SortingFunctions {
                     hadToSwap= true;
                 } }
         }while(hadToSwap);
+        return data;
     }
+    public static ArrayList<Integer> BubleSortArrylist(ArrayList<Integer> data){
+        if(data.size() < 2){return data;}
+        boolean hadToSwap = false;
+        do{
+            hadToSwap=false;
+            for(int i= 0; i != data.size()-1; ++i){
+                if(data.get(i) >data.get(i+1)){
+                    data = swapArraylist(data, i, i+1);
+                    hadToSwap= true;
+                } }
+        }while(hadToSwap);
+        return data;
+    }
+//    public static ArrayList<Integer> BubleSortArrylist(ArrayList<Integer> data, Boolean growing){ /avec option du sens de croissance
+//        if(data.size() < 2){return data;}
+//        boolean hadToSwap = false;
+//        do{
+//            hadToSwap=false;
+//            for(int i= 0; i != data.size()-1; ++i){
+//                Boolean isGrowing = data.get(i) < data.get(i+1);
+//                if( isGrowing != growing ){
+//                    data = swapArraylist(data, i, i+1);
+//                    hadToSwap= true;
+//                } }
+//        }while(hadToSwap);
+//        return data;
+//    }
     public static void MergeSort(int[] data, int begin, int end){
         if((end-begin) < 2){return;}
         int middle= (end+begin)/2;

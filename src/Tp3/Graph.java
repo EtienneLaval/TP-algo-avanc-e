@@ -10,18 +10,18 @@ import java.util.*;
 public class Graph {
     private int nodeCount;
     private int edgeCount;
-    private List<Integer>[] adj;
+    private ArrayList<Integer>[] adj;
 
-    public Graph(String filePath) throws IOException {
+    public Graph(String filePath,boolean orientedGraph) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(filePath),
                 StandardCharsets.UTF_8);
         nodeCount = getNodeCountOfGraphFromFileContent(lines);
         adj = new ArrayList[nodeCount];
-        addEdgesToGraph(adj, lines);
+        addEdgesToGraph(adj, lines, orientedGraph);
     }
     public Graph() throws IOException {
         Graph.createGraphFile("src/Tp3/newGraph.txt");
-        Graph graph = new Graph("src/Tp3/newGraph.txt");
+        Graph graph = new Graph("src/Tp3/newGraph.txt", false);
         this.nodeCount = graph.nodeCount;
         this.edgeCount = graph.edgeCount;
         this.adj = graph.adj;
@@ -39,20 +39,19 @@ public class Graph {
         }
         return set.size();
     }
-
-    private void addEdgesToGraph(List<Integer>[] adj, List<String> lines) {
+    private void addEdgesToGraph(List<Integer>[] adj, List<String> lines, boolean orientedGraph) {
+        int upset = lowerElementOfGraphFromStringList(lines);
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
-            int node1Index = Integer.parseInt(nodesNumber[0])-1; // -1 because the graph.txt doesn't begins at 0
-            int node2Index = Integer.parseInt(nodesNumber[1])-1;
-            addEdgeToNode(node1Index, node2Index);
+            int node1Index = Integer.parseInt(nodesNumber[0])-upset; // -1 if the graph.txt begins at 1
+            int node2Index = Integer.parseInt(nodesNumber[1])-upset;
+            addEdgeToNode(node1Index, node2Index, orientedGraph);
         }
     }
 
-    public void addEdgeToNode(int node1Index, int node2Index) {
+    public void addEdgeToNode(int node1Index, int node2Index, boolean orientedGraph) {
         edgeCount++;
-        boolean orientedGraph = false;
-        List<Integer> edges1 = adj[node1Index];
+        ArrayList<Integer> edges1 = adj[node1Index];
         if (edges1 == null) {
             edges1 = new ArrayList<Integer>();
         }
@@ -61,7 +60,7 @@ public class Graph {
 
 //        if (node1Index!=node2Index && !orientedGraph){
         if ( !orientedGraph){                           // si le graph n'est pas orienté, on renseigne le lien dans l'autre sens
-            List<Integer> edges2 = adj[node2Index];
+            ArrayList<Integer> edges2 = adj[node2Index];
             if (edges2 == null) {
                 edges2 = new ArrayList<Integer>();
             }
@@ -81,7 +80,7 @@ public class Graph {
     public int getSize(){
         return edgeCount;
     }
-    public List<Integer> getNeightbours(int node){
+    public ArrayList<Integer> getNeightbours(int node){
         return adj[node];
     }
     public int[] identityArray(int i){
@@ -97,7 +96,7 @@ public class Graph {
         data[i]= data[j];
         data[j]= tmp;
     }
-    public int[] getBubleSorterIndexArray(String criterium){ //reprend le bubble sort du TP1 mais ne renvoie qu'un tableau des noeuds par ordre décroissant de degré / croissant d'exentricité
+    public int[] getBubleSortedIndexArray(String criterium){ //reprend le bubble sort du TP1 mais ne renvoie qu'un tableau des noeuds par ordre décroissant de degré / croissant d'exentricité
         List<Integer>[] data = this.adj.clone();
         int [] indexArray = identityArray(data.length);
 
@@ -164,6 +163,14 @@ public class Graph {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int lowerElementOfGraphFromStringList(List<String> lines){
+        for (int i = 0; i<10; i++)
+            for (String line : lines) {
+                if (line.contains(String.valueOf(i))){return i;}
+            }
+        return 0;
     }
 }
 
