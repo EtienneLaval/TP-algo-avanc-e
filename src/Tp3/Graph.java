@@ -1,5 +1,6 @@
 package Tp3;
 import Tp1.SortingFunctions;
+import Tp4.Edge;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,14 +11,16 @@ import java.util.*;
 public class Graph {
     private int nodeCount;
     private int edgeCount;
-    private ArrayList<Integer>[] adj;
+    private ArrayList<Edge>[] adj;
+    private boolean weighted;
 
     public Graph(String filePath,boolean orientedGraph) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(filePath),
                 StandardCharsets.UTF_8);
+        weighted = isWeighted(lines);
         nodeCount = getNodeCountOfGraphFromFileContent(lines);
         adj = new ArrayList[nodeCount];
-        addEdgesToGraph(adj, lines, orientedGraph);
+        addEdgesToGraph(lines, orientedGraph);
     }
     public Graph() throws IOException {
         Graph.createGraphFile("src/Tp3/newGraph.txt");
@@ -25,48 +28,59 @@ public class Graph {
         this.nodeCount = graph.nodeCount;
         this.edgeCount = graph.edgeCount;
         this.adj = graph.adj;
-
-
+        this.weighted = graph.weighted;
+    }
+    public  boolean isWeighted (List<String> lines) {
+        String[] firstLine = lines.get(0).split(" ");
+        return firstLine.length > 2;
     }
 
     public int getNodeCountOfGraphFromFileContent(List<String> lines) {
         Set<String> set = new HashSet<String>();
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
-            for (String nodeNumber : nodesNumber) {
-                set.add(nodeNumber);
-            }
+//            for (String nodeNumber : nodesNumber) {
+                set.add(nodesNumber[0]);
+                set.add(nodesNumber[1]);
+//            }
         }
         return set.size();
     }
-    private void addEdgesToGraph(List<Integer>[] adj, List<String> lines, boolean orientedGraph) {
+    private void addEdgesToGraph(List<String> lines, boolean orientedGraph) {
         int upset = lowerElementOfGraphFromStringList(lines);
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
             int node1Index = Integer.parseInt(nodesNumber[0])-upset; // -1 if the graph.txt begins at 1
             int node2Index = Integer.parseInt(nodesNumber[1])-upset;
-            addEdgeToNode(node1Index, node2Index, orientedGraph);
+            if (weighted){
+                double weight = Double.parseDouble(nodesNumber[2]);
+                addEdgeToNode(node1Index, node2Index, orientedGraph, weight);}
+            else {addEdgeToNode(node1Index, node2Index, orientedGraph);}
+
         }
     }
 
-    public void addEdgeToNode(int node1Index, int node2Index, boolean orientedGraph) {
+    public void addEdgeToNode(int node1Index, int node2Index, boolean orientedGraph, double weight) {
         edgeCount++;
-        ArrayList<Integer> edges1 = adj[node1Index];
+        ArrayList<Edge> edges1 = adj[node1Index];
         if (edges1 == null) {
-            edges1 = new ArrayList<Integer>();
+            edges1 = new ArrayList<Edge>();
         }
-        edges1.add(node2Index);
+        edges1.add(new Edge(node1Index, node2Index, weight));
         adj[node1Index] = edges1;
 
 //        if (node1Index!=node2Index && !orientedGraph){
         if ( !orientedGraph){                           // si le graph n'est pas orienté, on renseigne le lien dans l'autre sens
-            ArrayList<Integer> edges2 = adj[node2Index];
+            ArrayList<Edge> edges2 = adj[node2Index];
             if (edges2 == null) {
-                edges2 = new ArrayList<Integer>();
+                edges2 = new ArrayList<Edge>();
             }
-            edges2.add(node1Index);
+            edges2.add(new Edge(node2Index,node1Index, weight));
             adj[node2Index] = edges2;
         }
+    }
+    public void addEdgeToNode(int node1Index, int node2Index, boolean orientedGraph){
+        addEdgeToNode(node1Index,node2Index,orientedGraph,1);
     }
 
 
@@ -80,9 +94,21 @@ public class Graph {
     public int getSize(){
         return edgeCount;
     }
-    public ArrayList<Integer> getNeightbours(int node){
-        return adj[node];
+    public ArrayList<Edge> getEdgesFromNode (int nodeIndex){
+      return adj[nodeIndex];
     }
+    public ArrayList<Integer> getNeightboursSimple(int node){
+        ArrayList<Integer> neightbours = new ArrayList<Integer>();
+
+        if (adj[node]==null){return neightbours;}
+        else{
+            for (int i = 0 ; i< adj[node].size() ; i++){
+                neightbours.add(adj[node].get(i).getNodeTo());
+            }
+            return neightbours;
+        }
+    }
+
     public int[] identityArray(int i){
         int[] array = new int[i];
         for (int k = 0 ; k<i ; k++){
@@ -91,13 +117,13 @@ public class Graph {
         return array;
     }
 
-    public static void swapLists(List<Integer>[] data, int i, int j){
-        List<Integer> tmp= data[i];
+    public static void swapLists(List[] data, int i, int j){
+        List tmp= data[i];
         data[i]= data[j];
         data[j]= tmp;
     }
     public int[] getBubleSortedIndexArray(String criterium){ //reprend le bubble sort du TP1 mais ne renvoie qu'un tableau des noeuds par ordre décroissant de degré / croissant d'exentricité
-        List<Integer>[] data = this.adj.clone();
+        List<Edge>[] data = this.adj.clone();
         int [] indexArray = identityArray(data.length);
 
         if(data.length < 2){return indexArray;}
@@ -120,14 +146,16 @@ public class Graph {
 
 
         public void print() {
-        System.out.println(Arrays.toString(adj));
+        for (int i = 0; i < adj.length; i++) {
+            System.out.println(i+" -> "+getNeightboursSimple(i));
+        }
     }
     public void printDetails() {
         System.out.println(" Order :" + this.getOrder());
         System.out.println(" Size " + this.getSize());
     }
     public void printNeightbours (int node){
-        System.out.println(getNeightbours(node));
+        System.out.println(this.getNeightboursSimple(node));
     }
 
 

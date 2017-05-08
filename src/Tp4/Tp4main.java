@@ -35,6 +35,8 @@ public class Tp4main {
 
         System.out.println("Partie 2 BFS and shortest path");
 
+        System.out.println(" ");
+
         Graph graphPart2 = new Graph("src/Tp4/graph-BFS-SP.txt",true);
         graphPart2.print();
 
@@ -42,16 +44,11 @@ public class Tp4main {
         bsp.bfsDigraph(graphPart2,0);
         System.out.println("--- la représentation en BFSShortestPath du graph ---");
         bsp.print();
-        System.out.println("--- les chemins les plus courts ---");
-        for (int i = 0 ; i<bsp.marked.size(); i++){
-            System.out.println("de 0 à "+i);
-            bsp.printSP(i);
-        }
-//        System.out.println("has path to "+bsp.hasPathTo(5));
-//        System.out.println("dist to "+bsp.distTo(5));
-//        bsp.printSP(5);
+//        System.out.println("--- les chemins les plus courts ---");
+//        for (int i = 0 ; i<bsp.marked.size(); i++){
+//            System.out.println("de 0 à "+i);
+//            bsp.printSP(i);
+//        }
 
-//        Graph graph_BFS = new Graph("src/Tp4/graph-BFS-SP.txt", false);
-//        graph_BFS.print();
     }
 }

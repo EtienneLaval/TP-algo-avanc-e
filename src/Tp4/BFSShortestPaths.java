@@ -35,15 +35,9 @@ public class BFSShortestPaths {
                 distance.set(beingVisited,0);
             } else {distance.set(beingVisited, distance.get( previous.get(beingVisited) ) +1 );}
 
-//            System.out.println("marked "+marked);
-//            System.out.println("being visited "+beingVisited);
-//            System.out.println("to visit "+ toVisit);
-            ArrayList neighbours = graph.getNeightbours(beingVisited);
+            ArrayList neighbours = graph.getNeightboursSimple(beingVisited);
             if (neighbours != null){
                 ArrayList<Integer> sortedNeighbours = SortingFunctions.BubleSortArrylist(neighbours);
-//                System.out.println("neighbours "+neighbours);
-//                System.out.println("sortedNeighbours "+sortedNeighbours);
-//                System.out.println(" ");
                 for (int n = 0 ; n<sortedNeighbours.size(); n++){
                     int neightbour = sortedNeighbours.get(n);
                     if (!marked.get(neightbour)){

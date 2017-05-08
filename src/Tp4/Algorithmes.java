@@ -3,10 +3,8 @@ package Tp4;
 import Tp1.SortingFunctions;
 import Tp3.Graph;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by etien on 19/04/2017.
@@ -21,11 +19,6 @@ public class Algorithmes {
         while (!toVisit.isEmpty() && whileBreaker>0) {
             whileBreaker--;
             if (whileBreaker == 0){System.out.println("infinite loop");}
-
-//            System.out.println("visited"+visited);
-//            System.out.println("toVisit"+toVisit);
-
-
             while (!visited.isEmpty() && !toVisit.isEmpty() && visited.indexOf(toVisit.get(0)) != -1){ // on purge ce qui a été visité
                 toVisit.remove(0);
             }
@@ -33,7 +26,7 @@ public class Algorithmes {
                 int beingVisited = toVisit.get(0);
                 toVisit.remove(0);
 
-                ArrayList neighbours = graph.getNeightbours(beingVisited);
+                ArrayList neighbours = graph.getNeightboursSimple(beingVisited);
                 if (neighbours != null){ // dans le cas d'un graph orienté, il peut ne pas y avoir de voisin
                    ArrayList sortedNeighbours = SortingFunctions.BubleSortArrylist(neighbours); // j'ai ajouté une transposiion aux arraylist des fonctions de tri du TP1
                 if (deepFirst){
@@ -43,10 +36,7 @@ public class Algorithmes {
                     toVisit.addAll(sortedNeighbours);
                 }
                 }
-//                System.out.println("beingVisited "+beingVisited);
-//                System.out.println("sortedNeighbours"+sortedNeighbours);
                 visited.add(beingVisited);
-//                System.out.println(" ");
 
             }
         }
