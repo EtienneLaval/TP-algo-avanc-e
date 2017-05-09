@@ -17,7 +17,7 @@ public class BFSShortestPaths {
     public ArrayList<Integer> distance;
 
     public BFSShortestPaths(Graph graph) {
-        int cardinality = graph.getSize()-1;
+        int cardinality = graph.getOrder();
         marked =  new ArrayList<>(Arrays.asList(new Boolean[cardinality]));
         previous =  new ArrayList<>(Arrays.asList(new Integer[cardinality]));
         distance =  new ArrayList<>(Arrays.asList(new Integer[cardinality]));
@@ -66,7 +66,7 @@ public class BFSShortestPaths {
         return path;
     }
     public void printSP (int v){
-        System.out.println(this.SP(v));
+        System.out.println("path : "+this.SP(v)+" | distance : "+this.distTo(v));
     }
 
     public void print () {

@@ -35,19 +35,32 @@ public class Graph {
         return firstLine.length > 2;
     }
 
-    public int getNodeCountOfGraphFromFileContent(List<String> lines) {
+    private Set<String> getNodeSetOfGraphFromFileContent(List<String> lines) {
         Set<String> set = new HashSet<String>();
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
-//            for (String nodeNumber : nodesNumber) {
                 set.add(nodesNumber[0]);
                 set.add(nodesNumber[1]);
-//            }
         }
-        return set.size();
+        return set;
+    }
+    private int getNodeCountOfGraphFromFileContent (List<String> lines){
+        return getNodeSetOfGraphFromFileContent(lines).size();
+    }
+    private int lowerElementOfGraphFromFileContent(List<String> lines){
+        Set<String> set = getNodeSetOfGraphFromFileContent(lines);
+        int lower = 0;
+        while (lower<5000){ // si rien n'est trouvé, on s'arette à 5000
+            if (set.contains(Integer.toString(lower))){
+                return lower;
+            }
+            lower++;
+        }
+        System.out.println("erreur plus petit élément introuvable");
+        return lower;
     }
     private void addEdgesToGraph(List<String> lines, boolean orientedGraph) {
-        int upset = lowerElementOfGraphFromStringList(lines);
+        int upset = lowerElementOfGraphFromFileContent(lines);
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
             int node1Index = Integer.parseInt(nodesNumber[0])-upset; // -1 if the graph.txt begins at 1
@@ -193,13 +206,7 @@ public class Graph {
         }
     }
 
-    private int lowerElementOfGraphFromStringList(List<String> lines){
-        for (int i = 0; i<10; i++)
-            for (String line : lines) {
-                if (line.contains(String.valueOf(i))){return i;}
-            }
-        return 0;
-    }
+
 }
 
 
