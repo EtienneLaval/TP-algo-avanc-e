@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by etien on 19/04/2017.
  */
 public class Algorithmes {
-    private static ArrayList<Integer> genericSearch(Graph graph, int startIndex, Boolean deepFirst){
+    protected static ArrayList<Integer> genericSearch(Graph graph, int startIndex, Boolean deepFirst){
         ArrayList<Integer> visited = new ArrayList<>();
         ArrayList<Integer> toVisit = new ArrayList<>();
         toVisit.add(startIndex);

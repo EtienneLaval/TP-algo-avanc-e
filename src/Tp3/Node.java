@@ -3,8 +3,8 @@
 //import java.util.List;
 //
 //public class Node {
-//    private String id;
-//    private List <Edge> neighbours;
+//    protected String id;
+//    protected List <Edge> neighbours;
 //
 //    //constructors
 //

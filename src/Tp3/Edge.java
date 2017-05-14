@@ -1,8 +1,8 @@
 //package Tp3;
 //
 //public class Edge {
-//    private Node[] nodes;
-//    private Float weignt;
+//    protected Node[] nodes;
+//    protected Float weignt;
 //
 //
 //    public Edge(Node n1 , Node n2) {

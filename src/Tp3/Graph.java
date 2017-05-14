@@ -9,10 +9,10 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Graph {
-    private int nodeCount;
-    private int edgeCount;
-    private ArrayList<Edge>[] adj;
-    private boolean weighted;
+    protected int nodeCount;
+    protected int edgeCount;
+    protected ArrayList<Edge>[] adj;
+    protected boolean weighted;
 
     public Graph(String filePath,boolean orientedGraph) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(filePath),
@@ -30,12 +30,18 @@ public class Graph {
         this.adj = graph.adj;
         this.weighted = graph.weighted;
     }
+    public Graph(int nodeCount, boolean weighted){
+        this.nodeCount = nodeCount;
+        this.edgeCount = 0;
+        this.adj = new ArrayList[nodeCount];
+        this.weighted = weighted;
+    }
     public  boolean isWeighted (List<String> lines) {
         String[] firstLine = lines.get(0).split(" ");
         return firstLine.length > 2;
     }
 
-    private Set<String> getNodeSetOfGraphFromFileContent(List<String> lines) {
+    protected Set<String> getNodeSetOfGraphFromFileContent(List<String> lines) {
         Set<String> set = new HashSet<String>();
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
@@ -44,10 +50,10 @@ public class Graph {
         }
         return set;
     }
-    private int getNodeCountOfGraphFromFileContent (List<String> lines){
+    protected int getNodeCountOfGraphFromFileContent (List<String> lines){
         return getNodeSetOfGraphFromFileContent(lines).size();
     }
-    private int lowerElementOfGraphFromFileContent(List<String> lines){
+    protected int lowerElementOfGraphFromFileContent(List<String> lines){
         Set<String> set = getNodeSetOfGraphFromFileContent(lines);
         int lower = 0;
         while (lower<5000){ // si rien n'est trouvé, on s'arette à 5000
@@ -59,7 +65,7 @@ public class Graph {
         System.out.println("erreur plus petit élément introuvable");
         return lower;
     }
-    private void addEdgesToGraph(List<String> lines, boolean orientedGraph) {
+    protected void addEdgesToGraph(List<String> lines, boolean orientedGraph) {
         int upset = lowerElementOfGraphFromFileContent(lines);
         for (String line : lines) {
             String[] nodesNumber = line.split(" ");
@@ -208,44 +214,4 @@ public class Graph {
 
 
 }
-
-
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class Graph {
-//    private List<Node> nodes;
-//
-//    public Graph() {
-//        nodes = new ArrayList<>();
-//    }
-//    public Graph(int n){
-//        nodes = new ArrayList<>();
-//        //construit 1 graphe vide de taille n
-//        for (int i = 0; i<n ; i++){
-//            this.addNode();
-//        }
-//    }
-//
-//
-//
-//
-//
-//    // simple voids
-//    public void addNode() {
-//        Node newNode = new Node();
-//        nodes.add(newNode);
-//    }
-//    public void addEdge(Node n1, Node n2) {
-//        Edge newEdge = new Edge(n1,n2);
-//        n1.addEdge(newEdge);
-//        n2.addEdge(newEdge);
-//    }
-//
-//
-//}
-//
-//
-//
 

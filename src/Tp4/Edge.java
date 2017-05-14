@@ -4,9 +4,9 @@ package Tp4;
  * Created by etien on 26/04/2017.
  */
 public class Edge {
-    private int nodeFrom;
-    private int nodeTo;
-    private double weight;
+    protected int nodeFrom;
+    protected int nodeTo;
+    protected double weight;
 
 
     public Edge(int nodeFrom, int nodeTo, double weight) {
