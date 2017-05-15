@@ -12,7 +12,7 @@ import static Tp4.Algorithmes.*;
 /**
  * Created by etien on 19/04/2017.
  */
-public class Tp4main {
+public class Tp4Main {
     public static void tpMain (String[] args) throws IOException {
 // Partie 1 dfs
         Graph graphPart1 = new Graph("src/Tp4/graph-DFS-BFS.txt",false);

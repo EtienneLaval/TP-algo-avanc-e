@@ -2,7 +2,7 @@ package Tp3;
 
 import java.io.IOException;
 
-public class Tp3main {
+public class Tp3Main {
     public static void tpMain (String[] args) throws IOException {
 
 //        -------------------------------------------------------------Question 2.1 ---------------------------------------------------------
