@@ -1,5 +1,4 @@
-import Tp3.Tp3main;
-import Tp4.Tp4main;
+import TP5.Tp5Main;
 
 import java.io.IOException;
 
@@ -8,7 +7,8 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-//        Tp3main.tpMain(args);
-        Tp4main.tpMain(args);
+//        Tp3Main.tpMain(args);
+//        Tp4Main.tpMain(args);
+        Tp5Main.tpMain(args);
     }
 }

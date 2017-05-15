@@ -36,7 +36,7 @@ public class Graph {
         this.adj = new ArrayList[nodeCount];
         this.weighted = weighted;
     }
-    public  boolean isWeighted (List<String> lines) {
+    protected boolean isWeighted (List<String> lines) {
         String[] firstLine = lines.get(0).split(" ");
         return firstLine.length > 2;
     }
@@ -127,7 +127,7 @@ public class Graph {
             return neightbours;
         }
     }
-
+    // une petite bibliothèque utile
     public int[] identityArray(int i){
         int[] array = new int[i];
         for (int k = 0 ; k<i ; k++){
@@ -163,7 +163,7 @@ public class Graph {
 
 
 
-
+// les prints
         public void print() {
         for (int i = 0; i < adj.length; i++) {
             System.out.println(i+" -> "+getNeightboursSimple(i));
@@ -181,7 +181,7 @@ public class Graph {
 
 
 
-
+ // création d'un graph depuis un fichier texte
     public static void createGraphFile(String path){
         List<String> lines = new ArrayList<>();
         Scanner sc = new Scanner(System.in);

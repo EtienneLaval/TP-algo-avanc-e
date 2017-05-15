@@ -11,8 +11,8 @@ import java.util.Collections;
  * Created by etien on 25/04/2017.
  */
 public class DjikstraShortestPath {
-    public ArrayList<Boolean> marked;
     public ArrayList<Integer> previous;
+    public ArrayList<Boolean> marked;
     public ArrayList<Double> distance;
 
     public DjikstraShortestPath(Graph graph) {
